@@ -69,15 +69,6 @@ class DinoController {
                 error
             });
         }
-
-        /**
-         * Return
-         * name @string
-         * pronounciation @string
-         * meaning @string
-         * image @string
-         *
-         */
     }
 
     static async getDinoEra(req, res) {
@@ -180,6 +171,179 @@ class DinoController {
 
             res.status(200).json({
                 dinoDiet
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                error
+            });
+        }
+    }
+
+    static async getDinoListByEra(req, res) {
+        const { era } = req.params;
+        const formatEra = era.replace(/\W/g, '-').toLowerCase();
+        try {
+            const { data } = await server.get(
+                `/timeline/${formatEra}/gallery.html`
+            );
+            const $ = cheerio.load(data);
+            const dinoList = [];
+
+            $('.dinosaurfilter--dino-list')
+                .children('li')
+                .each((_, el) => {
+                    const name = $(el)
+                        .children()
+                        .children('.dinosaurfilter--name-unhyphenated')
+                        .text()
+                        .trim();
+                    const link = $(el).children('a').attr('href');
+                    const image = $(el).children().children('img').attr('src');
+                    dinoList.push({ name, link, image });
+                });
+
+            res.status(200).json({
+                dinoList,
+                count: dinoList.length
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                error
+            });
+        }
+    }
+
+    static async getDinoListByFoundPlace(req, res) {
+        const { found_place } = req.params;
+        try {
+            const { data } = await server.get(
+                `/country/${found_place.toLowerCase()}/gallery.html`
+            );
+            const $ = cheerio.load(data);
+            const dinoList = [];
+
+            $('.dinosaurfilter--dino-list')
+                .children('li')
+                .each((_, el) => {
+                    const name = $(el)
+                        .children()
+                        .children('.dinosaurfilter--name-unhyphenated')
+                        .text()
+                        .trim();
+                    const link = $(el).children('a').attr('href');
+                    const image = $(el).children().children('img').attr('src');
+                    dinoList.push({ name, link, image });
+                });
+
+            res.status(200).json({
+                dinoList,
+                count: dinoList.length
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                error
+            });
+        }
+    }
+
+    static async getDinoListByBodyType(req, res) {
+        const { body_type } = req.params;
+        const formatBodyType = body_type.replace(/\W/g, '-').toLowerCase();
+        try {
+            const { data } = await server.get(
+                `/body-shape/${formatBodyType}/gallery.html`
+            );
+            const $ = cheerio.load(data);
+            const dinoList = [];
+
+            $('.dinosaurfilter--dino-list')
+                .children('li')
+                .each((_, el) => {
+                    const name = $(el)
+                        .children()
+                        .children('.dinosaurfilter--name-unhyphenated')
+                        .text()
+                        .trim();
+                    const link = $(el).children('a').attr('href');
+                    const image = $(el).children().children('img').attr('src');
+                    dinoList.push({ name, link, image });
+                });
+
+            res.status(200).json({
+                dinoList,
+                count: dinoList.length
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                error
+            });
+        }
+    }
+
+    static async getDinoListByDietType(req, res) {
+        const { diet } = req.params;
+        try {
+            const { data } = await server.get(
+                `/diet/${diet.toLowerCase()}/gallery.html`
+            );
+            const $ = cheerio.load(data);
+            const dinoList = [];
+
+            $('.dinosaurfilter--dino-list')
+                .children('li')
+                .each((_, el) => {
+                    const name = $(el)
+                        .children()
+                        .children('.dinosaurfilter--name-unhyphenated')
+                        .text()
+                        .trim();
+                    const link = $(el).children('a').attr('href');
+                    const image = $(el).children().children('img').attr('src');
+                    dinoList.push({ name, link, image });
+                });
+
+            res.status(200).json({
+                dinoList,
+                count: dinoList.length
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                error
+            });
+        }
+    }
+
+    static async getDinoListByName(req, res) {
+        const { alphabet } = req.params
+
+        try {
+            const { data } = await server.get(
+                `/name/${alphabet.toLowerCase()}/gallery.html`
+            );
+            const $ = cheerio.load(data);
+            const dinoList = [];
+
+            $('.dinosaurfilter--dino-list')
+                .children('li')
+                .each((_, el) => {
+                    const name = $(el)
+                        .children()
+                        .children('.dinosaurfilter--name-unhyphenated')
+                        .text()
+                        .trim();
+                    const link = $(el).children('a').attr('href');
+                    const image = $(el).children().children('img').attr('src');
+                    dinoList.push({ name, link, image });
+                });
+
+            res.status(200).json({
+                dinoList,
+                count: dinoList.length
             });
         } catch (error) {
             console.error(error);
