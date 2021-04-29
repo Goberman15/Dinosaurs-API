@@ -1,6 +1,7 @@
 const server = require('../api');
 const cheerio = require('cheerio');
 const { capitalize } = require('../helpers/capitalize.js');
+const getDinoList = require('../helpers/getDinoList');
 
 class DinoController {
     static async getAllDinoList(_, res) {
@@ -188,20 +189,7 @@ class DinoController {
                 `/timeline/${formatEra}/gallery.html`
             );
             const $ = cheerio.load(data);
-            const dinoList = [];
-
-            $('.dinosaurfilter--dino-list')
-                .children('li')
-                .each((_, el) => {
-                    const name = $(el)
-                        .children()
-                        .children('.dinosaurfilter--name-unhyphenated')
-                        .text()
-                        .trim();
-                    const link = $(el).children('a').attr('href');
-                    const image = $(el).children().children('img').attr('src');
-                    dinoList.push({ name, link, image });
-                });
+            const dinoList = getDinoList($);
 
             res.status(200).json({
                 dinoList,
@@ -222,20 +210,7 @@ class DinoController {
                 `/country/${found_place.toLowerCase()}/gallery.html`
             );
             const $ = cheerio.load(data);
-            const dinoList = [];
-
-            $('.dinosaurfilter--dino-list')
-                .children('li')
-                .each((_, el) => {
-                    const name = $(el)
-                        .children()
-                        .children('.dinosaurfilter--name-unhyphenated')
-                        .text()
-                        .trim();
-                    const link = $(el).children('a').attr('href');
-                    const image = $(el).children().children('img').attr('src');
-                    dinoList.push({ name, link, image });
-                });
+            const dinoList = getDinoList($);
 
             res.status(200).json({
                 dinoList,
@@ -257,20 +232,7 @@ class DinoController {
                 `/body-shape/${formatBodyType}/gallery.html`
             );
             const $ = cheerio.load(data);
-            const dinoList = [];
-
-            $('.dinosaurfilter--dino-list')
-                .children('li')
-                .each((_, el) => {
-                    const name = $(el)
-                        .children()
-                        .children('.dinosaurfilter--name-unhyphenated')
-                        .text()
-                        .trim();
-                    const link = $(el).children('a').attr('href');
-                    const image = $(el).children().children('img').attr('src');
-                    dinoList.push({ name, link, image });
-                });
+            const dinoList = getDinoList($);
 
             res.status(200).json({
                 dinoList,
@@ -291,20 +253,7 @@ class DinoController {
                 `/diet/${diet.toLowerCase()}/gallery.html`
             );
             const $ = cheerio.load(data);
-            const dinoList = [];
-
-            $('.dinosaurfilter--dino-list')
-                .children('li')
-                .each((_, el) => {
-                    const name = $(el)
-                        .children()
-                        .children('.dinosaurfilter--name-unhyphenated')
-                        .text()
-                        .trim();
-                    const link = $(el).children('a').attr('href');
-                    const image = $(el).children().children('img').attr('src');
-                    dinoList.push({ name, link, image });
-                });
+            const dinoList = getDinoList($);
 
             res.status(200).json({
                 dinoList,
@@ -326,20 +275,7 @@ class DinoController {
                 `/name/${alphabet.toLowerCase()}/gallery.html`
             );
             const $ = cheerio.load(data);
-            const dinoList = [];
-
-            $('.dinosaurfilter--dino-list')
-                .children('li')
-                .each((_, el) => {
-                    const name = $(el)
-                        .children()
-                        .children('.dinosaurfilter--name-unhyphenated')
-                        .text()
-                        .trim();
-                    const link = $(el).children('a').attr('href');
-                    const image = $(el).children().children('img').attr('src');
-                    dinoList.push({ name, link, image });
-                });
+            const dinoList = getDinoList($);
 
             res.status(200).json({
                 dinoList,
